@@ -12,11 +12,11 @@ public class ByteUtil {
 			fos.write(data);
 			fos.flush();
 			fos.close();
-      return true;
+    			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-    return false;
+   	return false;
 	}
   
 	public static byte[] loadBytes(String f) {
@@ -24,14 +24,14 @@ public class ByteUtil {
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			BufferedInputStream bis = new BufferedInputStream(new FileInputStream(new File(f)));
 			int len = -1;
-      byte[] cache = new byte[4096];
+      			byte[] cache = new byte[4096];
 			while ((len = bis.read(cache)) > 0) baos.write(cache, 0, len);
 			bis.close();
 			return baos.toByteArray();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-    return new byte[0];
+    	return new byte[0];
 	}
 
 }
