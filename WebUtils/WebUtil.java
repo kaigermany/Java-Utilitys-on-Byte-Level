@@ -18,6 +18,7 @@ class WebUtil {
       //conn.setRequestProperty("Accept", "*/*");
       conn.setRequestProperty("User-Agent", "Mozilla/4.0 (Windows NT 10.0; OSX; x64; rv:60.0) Gecko/20100101 Firefox/60.0");
       conn.setRequestProperty("Accept-Language", "de,en-US;q=0.7,en;q=0.3");
+      //conn.setRequestProperty("Cookie", "__test=test");
       if (post != null) {
         if (post.length > 0) {
           conn.setRequestProperty("Content-Length", "" + post.length);
