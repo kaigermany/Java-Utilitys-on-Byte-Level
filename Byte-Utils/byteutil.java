@@ -33,5 +33,49 @@ public class ByteUtil {
 		}
     	return new byte[0];
 	}
+	
+	
+	
+	
+class DynamicInputStream extends InputStream{
+  ArrayList<Byte> buffer;
+  volatile boolean isFinalized;
+  int maxSize;
+  public DynamicInputStream(int cacheSizeLimit){
+    buffer = new ArrayList<Byte>();
+    isFinalized=false;
+    maxSize = cacheSizeLimit;
+  }
+  synchronized public boolean write(int b){
+    if(b == -1) {
+      setEOF();
+      return false;
+    }
+   if(!isFinalized) {
+     if(maxSize != -1) while(buffer.size() >= maxSize) delay(1);
+     buffer.add(Byte.valueOf((byte)b));
+   }
+   return true;
+  }
+  synchronized public void setEOF(){
+    isFinalized = true;
+  }
+  synchronized public int read(){
+    if(buffer.size() != 0){
+      return buffer.remove(0).byteValue();
+    } else {
+      if(isFinalized) return -1;
+      while(buffer.size() == 0) {
+        delay(1);
+        if(isFinalized) return -1;
+      }
+      return buffer.remove(0).byteValue();
+    }
+  }
+}
 
+	
+	
+	
+	
 }
